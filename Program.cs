@@ -71,3 +71,13 @@ catch (DbUpdateException)
     Console.WriteLine("  Correctly rejected: constraint is enforced.");
     db.ChangeTracker.Clear();
 }
+
+// ---- Stage 5 queries (screen 4 + the three reports) ----
+var sampleAppointment = db.Appointments.OrderBy(a => a.AppointmentId).First();
+Queries.DailySchedule(db, sampleAppointment.ProviderId, sampleAppointment.AppointmentDatetime.Date);
+
+Queries.AppointmentsPerProviderPerMonth(db);
+
+Queries.NoShowRateByClinic(db);
+
+Queries.MostFrequentDiagnosesInQuarter(db, new DateOnly(2024, 1, 1), new DateOnly(2024, 4, 1));

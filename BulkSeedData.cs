@@ -2,16 +2,7 @@ using ClinicFlowDemo.Models;
 
 namespace ClinicFlowDemo;
 
-// Stage 4-equivalent bulk data generation, done through EF Core instead of raw SQL.
-// Strategy (see conversation notes): grow small real pools (Patient/Provider/Room),
-// then generate volume by cycling through those pools via modulo on a counter —
-// same idea as the raw-SQL Numbers-table approach, just expressed in C#.
-//
-// Because EF Core's change tracker gets expensive at scale, every phase:
-//   - runs with AutoDetectChangesEnabled = false
-//   - batches SaveChanges() calls instead of one call for everything
-//   - calls ChangeTracker.Clear() between batches
-//   - sets foreign keys as plain scalar ints, not via navigation properties
+
 public static class BulkSeedData
 {
     private const int PatientCount = 1000;
